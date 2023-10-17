@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 import pandas as pd
 import yaml
-
+import pickle
 
 log = logging.getLogger(__name__)
 
@@ -22,6 +22,8 @@ def get_default_mode(path):
         return "pandas-csv"
     if path.suffix == ".tsv":
         return "pandas-tsv"
+    if path.suffix in [".pickle", ".pkl"]:
+        return "pickle"
     return "raw"
 
 
@@ -47,6 +49,8 @@ def dump(content, filename, mode=None, **kwargs):
             content.to_csv(filename, **kwargs)
         elif mode == "pandas-tsv":
             content.to_csv(filename, sep="\t", **kwargs)
+        elif mode == "pickle":
+            pickle.dump(content, open(filename, "wb"), **kwargs)
         elif mode == "raw":
             f.write(content)
 
@@ -62,6 +66,8 @@ def load(filename, mode=None, **kwargs):
             return json.load(f)
         if mode == "yaml":
             return yaml.load(f, Loader=yaml.SafeLoader)
+        if mode == "pickle":
+            return pickle.load(open(filename, "rb"), **kwargs)
         if "pandas" in mode:
             if "keep_default_na" not in kwargs:
                 kwargs["keep_default_na"] = False
