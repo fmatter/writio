@@ -75,4 +75,7 @@ def load(filename, mode=None, **kwargs):
             res = pd.read_csv(filename, **kwargs)
             res = res.set_index(res.columns[0], drop=False)
             return {x.name: dict(x) for i, x in res.iterrows()}
+        if mode == "records":
+            res = pd.read_csv(filename, **kwargs)
+            return list(res.to_dict("records"))
         return f.read()

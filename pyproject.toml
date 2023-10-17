@@ -1,28 +1,16 @@
+[tool.poetry]
+name = "writio"
+version = "0.0.2.dev"
+description = "A file reading and writing library for `.csv`, `.yaml`, and `.json` files. You probably shouldn't use this."
+authors = ["Florian Matter <flmt@mailbox.org>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyyaml = "^6.0.1"
+
+
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.pylint."MESSAGES.CONTROL"]
-disable=["logging-fstring-interpolation"]
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = py37,py38,py39,py310,lint
-skip_missing_interpreters = true
-toxworkdir=/tmp/.writio_tox
-
-[testenv]
-usedevelop = True
-commands = 
-    pytest --cov
-extras = dev
-
-[testenv:lint]
-commands =
-    python -m flake8
-    prospector src
-    prospector tests
-    isort --check-only src
-extras = dev
-"""
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
