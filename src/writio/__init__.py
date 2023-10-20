@@ -2,14 +2,14 @@
 import json
 import logging
 from pathlib import Path
-import pandas as pd
 import yaml
 import pickle
+import sys
 
 log = logging.getLogger(__name__)
 
 __author__ = "Florian Matter"
-__email__ = "fmatter@mailbox.org"
+__email__ = "flmt@mailbox.org"
 __version__ = "0.0.2.dev"
 
 
@@ -31,6 +31,11 @@ def dump(content, filename, mode=None, **kwargs):
     path = Path(filename)
     mode = mode or get_default_mode(path)
     if "pandas" in mode:
+        try:
+            import pandas as pd
+        except ImportError:
+            log.error("Please install pandas")
+            sys.exit()
         if "index" not in kwargs:
             kwargs["index"] = False
         if isinstance(content, dict):
