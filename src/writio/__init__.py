@@ -43,7 +43,7 @@ def dump(content, filename, mode=None, **kwargs):
         if isinstance(content, list):
             content = pd.DataFrame.from_dict(content)
     else:
-        if isinstance(content, pd.DataFrame):
+        if hasattr(content, "to_dict"):
             content = content.to_dict("records")
     with open(path, "w", encoding="utf-8") as f:
         if mode == "json":
@@ -74,6 +74,11 @@ def load(filename, mode=None, **kwargs):
         if mode == "pickle":
             return pickle.load(open(filename, "rb"), **kwargs)
         if "pandas" in mode:
+            try:
+                import pandas as pd
+            except ImportError:
+                log.error("Please install pandas")
+                sys.exit()
             if "keep_default_na" not in kwargs:
                 kwargs["keep_default_na"] = False
             if "dtype" not in kwargs:
@@ -83,6 +88,11 @@ def load(filename, mode=None, **kwargs):
             if mode == "pandas-tsv":
                 return pd.read_csv(filename, sep="\t", **kwargs)
         if mode == "csv2dict":
+            try:
+                import pandas as pd
+            except ImportError:
+                log.error("Please install pandas")
+                sys.exit()
             res = pd.read_csv(filename, **kwargs)
             res = res.set_index(res.columns[0], drop=False)
             return {x.name: dict(x) for i, x in res.iterrows()}
