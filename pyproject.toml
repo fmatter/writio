@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "writio"
-version = "0.0.2.dev"
-description = "A file reading and writing library for `.csv`, `.yaml`, and `.json` files. You probably shouldn't use this."
+version = "0.1.0.dev"
+description = "A file reading and writing library for `.csv`, `.yaml`, `.json`, and `.pickle` files. You probably shouldn't use this."
 authors = ["Florian Matter <flmt@mailbox.org>"]
 license = "MIT"
 readme = "README.md"
