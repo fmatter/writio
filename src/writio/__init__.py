@@ -1,10 +1,11 @@
 """Top-level package for writio."""
 import json
 import logging
-from pathlib import Path
-import yaml
 import pickle
 import sys
+from pathlib import Path
+import yaml
+
 
 log = logging.getLogger(__name__)
 
