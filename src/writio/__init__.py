@@ -4,8 +4,8 @@ import logging
 import pickle
 import sys
 from pathlib import Path
-import yaml
 
+import yaml
 
 log = logging.getLogger(__name__)
 
