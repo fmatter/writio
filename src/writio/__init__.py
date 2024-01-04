@@ -61,7 +61,7 @@ def dump(content, filename, mode=None, **kwargs):
             f.write(content)
 
 
-def load(filename, mode=None, key_col=None, val_col=None,**kwargs):
+def load(filename, mode=None, key_col=None, val_col=None, **kwargs):
     path = Path(filename)
     if not path.is_file():
         log.warning(f"{path} does not exist")
@@ -100,7 +100,7 @@ def load(filename, mode=None, key_col=None, val_col=None,**kwargs):
             else:
                 res = res.set_index(res.columns[0], drop=False)
             if val_col:
-                return {x.name: x[val_col] for i, x in res.iterrows()}                
+                return {x.name: x[val_col] for i, x in res.iterrows()}
             return {x.name: dict(x) for i, x in res.iterrows()}
         if mode == "records":
             res = pd.read_csv(filename, **kwargs)
