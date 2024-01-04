@@ -15,7 +15,7 @@ __version__ = "0.0.2.dev"
 
 
 def get_default_mode(path):
-    if path.suffix == ".json":
+    if path.suffix in [".json", ".geojson"]:
         return "json"
     if path.suffix in [".yaml", ".yml"]:
         return "yaml"
