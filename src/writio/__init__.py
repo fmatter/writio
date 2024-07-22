@@ -11,7 +11,6 @@ import yaml
 # yaml scalar blocks, from https://stackoverflow.com/a/8641732, by https://stackoverflow.com/users/4279/jfs
 
 
-
 class quoted(str):
     pass
 
